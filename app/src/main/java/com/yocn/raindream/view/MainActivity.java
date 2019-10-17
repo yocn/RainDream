@@ -1,13 +1,17 @@
-package com.yocn.raindream;
+package com.yocn.raindream.view;
 
-import android.app.Activity;
 import android.os.Bundle;
 
-public class MainActivity extends Activity {
+import com.yocn.raindream.R;
+import com.yocn.raindream.base.BaseActivity;
+
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+
 }
