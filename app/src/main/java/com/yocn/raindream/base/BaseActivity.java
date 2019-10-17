@@ -1,6 +1,11 @@
 package com.yocn.raindream.base;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 /**
  * @Author yocn

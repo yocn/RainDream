@@ -1855,14 +1855,11 @@ public class FileUtils {
 
     public static void copyAssetsForder2SDCard(ContextWrapper activity, String forderName, String targetPath) {
         try {
-            String[] assets2 = activity.getAssets().list("");
-            LogUtil.d("assets2->" + assets2.length);
-            printss(assets2);
             String[] assets = activity.getAssets().list(forderName);
             LogUtil.d("assets->" + assets.length);
             for (String s : assets) {
                 LogUtil.d("fileName->" + s);
-                copyAssetsFile2Phone(activity, forderName + "/" + s, targetPath);
+                copyAssetsFile2Phone(activity, forderName + "/" + s, targetPath + "/" + s);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -1889,6 +1886,7 @@ public class FileUtils {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            LogUtil.d("e->" + e.getMessage());
             return false;
         }
         return true;

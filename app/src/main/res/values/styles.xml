@@ -1,8 +1,15 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="@android:style/Theme.Holo.NoActionBar">
+    <style name="AppTheme" parent="android:Theme.Black.NoTitleBar">
         <!-- Customize your theme here. -->
+        <!--<item name="android:navigationBarColor">@android:color/transparent</item>-->
+        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
+<!--        <item name="android:windowTranslucentNavigation">true</item>-->
+        <item name="android:windowTranslucentStatus">true</item>
+<!--        <item name="android:windowFullscreen">true</item>-->
+        <!--        <item name="android:windowBackground">@color/pink</item>-->
+        <item name="android:windowBackground">@drawable/bg_window_drawable</item>
     </style>
 
 </resources>
