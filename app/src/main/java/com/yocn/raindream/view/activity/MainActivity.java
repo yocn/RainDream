@@ -1,15 +1,20 @@
 package com.yocn.raindream.view.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.yocn.raindream.R;
 import com.yocn.raindream.base.BaseActivity;
 import com.yocn.raindream.model.JumpBean;
+import com.yocn.raindream.utils.BitmapUtil;
 import com.yocn.raindream.utils.DisplayUtil;
 import com.yocn.raindream.view.adapter.MainAdapter;
 
@@ -22,7 +27,9 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MainActivity extends BaseActivity {
 
     RecyclerView mRecyclerView;
-    RelativeLayout mTopRL;
+    LinearLayout mTopRL;
+    ImageView mIconImageView;
+    View mOtherView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,8 @@ public class MainActivity extends BaseActivity {
     private void initView(View root) {
         mRecyclerView = root.findViewById(R.id.rv_main);
         mTopRL = root.findViewById(R.id.rl_top);
+        mIconImageView = root.findViewById(R.id.iv_icon);
+        mOtherView = root.findViewById(R.id.iv_other);
         mTopRL.post(() -> {
             int height = getWindow().getDecorView().getMeasuredHeight();
             int width = getWindow().getDecorView().getMeasuredWidth();
@@ -54,8 +63,11 @@ public class MainActivity extends BaseActivity {
     }
 
     private int currentY;
+    Bitmap bitmap;
 
     private void initData() {
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.raindream);
+
         List<JumpBean> data = MainAdapter.getDataList();
         MainAdapter mMainAdapter = new MainAdapter(data);
         mMainAdapter.setmContext(this);
@@ -93,17 +105,16 @@ public class MainActivity extends BaseActivity {
                 super.onScrolled(recyclerView, dx, dy);
                 currentY += dy;
                 if (currentY < min) {
-                    mTopRL.setVisibility(View.GONE);
-                    DisplayUtil.setAndroidNativeLightStatusBar(MainActivity.this, false);
+//                    mTopRL.setVisibility(View.GONE);
+//                    DisplayUtil.setAndroidNativeLightStatusBar(MainActivity.this, false);
                 } else {
-                    mTopRL.setVisibility(View.VISIBLE);
-                    DisplayUtil.setAndroidNativeLightStatusBar(MainActivity.this, true);
+//                    mTopRL.setVisibility(View.VISIBLE);
+//                    DisplayUtil.setAndroidNativeLightStatusBar(MainActivity.this, true);
                     if (currentY < max) {
                         int percent = (currentY - min) * 100 / (max - min);
-                        String color = DisplayUtil.getColor(percent);
-                        mTopRL.setBackgroundColor(Color.parseColor(color));
+//                        mTopRL.setBackgroundColor(Color.parseColor(color));
                     } else {
-                        mTopRL.setBackgroundResource(R.color.gray);
+//                        mTopRL.setBackgroundResource(R.color.gray_deep);
                     }
 
                 }

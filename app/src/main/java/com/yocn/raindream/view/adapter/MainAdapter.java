@@ -117,10 +117,10 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     //item 点击事件
-//                    LogUtil.d("realPosition    click-" + (position - 1) + "    " + mDatas.get((position - 1)).getToClass() + " position-》" + (position - 1));
-//                    if (mContext != null) {
-//                        mContext.startActivity(new Intent(mContext, mDatas.get(position - 1).getToClass()));
-//                    }
+                    LogUtil.d("realPosition    click-" + (position - 1) + "    " + mDatas.get((position - 1)).getToClass() + " position-》" + (position - 1));
+                    if (mContext != null) {
+                        mContext.startActivity(new Intent(mContext, mDatas.get(position - 1).getToClass()));
+                    }
                 }
             });
         }

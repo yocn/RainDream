@@ -47,7 +47,7 @@ public class DisplayUtil {
 
     public static String getColor(int percent) {
         String prefix = "#";
-        String rawColor = "EDEDED";
+        String rawColor = "222222";
         String s = get(percent);
         return prefix + s + rawColor;
     }

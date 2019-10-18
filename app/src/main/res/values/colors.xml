@@ -9,6 +9,7 @@
     <color name="trans">#00000000</color>
 
     <color name="gray">#EDEDED</color>
+    <color name="gray_deep">#222222</color>
 
     <color name="color1">#8FBC8F</color>
     <color name="color2">#FAEBD7</color>
