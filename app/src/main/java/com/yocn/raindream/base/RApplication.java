@@ -2,6 +2,7 @@ package com.yocn.raindream.base;
 
 import android.app.Application;
 
+import com.yocn.raindream.presenter.audio.AudioManager;
 import com.yocn.raindream.utils.FileUtils;
 import com.yocn.raindream.utils.LogUtil;
 import com.yocn.raindream.utils.StorageUtil;
@@ -25,6 +26,7 @@ public class RApplication extends Application {
         String path = StorageUtil.getOggPath();
         FileUtils.copyAssetsForder2SDCard(this, "oggs", path);
         LogUtil.d("path->" + path);
+        AudioManager.getInstance().initAudioList();
     }
 
     public static RApplication getAppContext() {

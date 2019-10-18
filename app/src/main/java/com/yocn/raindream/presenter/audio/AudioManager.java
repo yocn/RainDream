@@ -4,6 +4,7 @@ import com.yocn.raindream.model.audio.AudioBean;
 import com.yocn.raindream.utils.FileUtils;
 import com.yocn.raindream.utils.StorageUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class AudioManager {
 
     public static AudioManager getInstance() {
         synchronized (AudioManager.class) {
-            if (mInstance != null) {
+            if (mInstance == null) {
                 synchronized (AudioManager.class) {
                     mInstance = new AudioManager();
                 }
@@ -27,9 +28,18 @@ public class AudioManager {
         return mInstance;
     }
 
-    public void initAudioList(){
-        String rootPath = StorageUtil.getExternalFilesDir()
-        FileUtils.listFiles();
+    public void initAudioList() {
+        String rootPath = StorageUtil.getOggPath();
+        File[] files = FileUtils.listFiles(rootPath);
+        if (files == null) {
+            return;
+        }
+        for (File file : files) {
+            AudioBean audioBean = new AudioBean();
+            audioBean.setName(file.getName());
+            audioBean.setPath(file.getAbsolutePath());
+            mAudioList.add(audioBean);
+        }
     }
 
 }
