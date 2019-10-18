@@ -11,15 +11,4 @@
         </shape>
     </item>
 
-    <item
-        android:id="@+id/item_icon"
-        android:gravity="top"
-        android:top="250dp">
-
-        <bitmap
-            android:gravity="center"
-            android:src="@drawable/trans"/>
-
-    </item>
-
 </layer-list>
