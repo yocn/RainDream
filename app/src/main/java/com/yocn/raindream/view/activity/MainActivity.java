@@ -105,16 +105,17 @@ public class MainActivity extends BaseActivity {
                 super.onScrolled(recyclerView, dx, dy);
                 currentY += dy;
                 if (currentY < min) {
-//                    mTopRL.setVisibility(View.GONE);
+                    mTopRL.setVisibility(View.GONE);
 //                    DisplayUtil.setAndroidNativeLightStatusBar(MainActivity.this, false);
                 } else {
-//                    mTopRL.setVisibility(View.VISIBLE);
+                    mTopRL.setVisibility(View.VISIBLE);
 //                    DisplayUtil.setAndroidNativeLightStatusBar(MainActivity.this, true);
                     if (currentY < max) {
-                        int percent = (currentY - min) * 100 / (max - min);
-//                        mTopRL.setBackgroundColor(Color.parseColor(color));
+                        float percent = (currentY - min) * 1.0f / (max - min);
+                        mTopRL.setAlpha(percent);
                     } else {
 //                        mTopRL.setBackgroundResource(R.color.gray_deep);
+                        mTopRL.setAlpha(1.0f);
                     }
 
                 }
