@@ -34,11 +34,14 @@ public class AudioManager {
         if (files == null) {
             return;
         }
-        for (File file : files) {
+
+        for (int i = 0; i < files.length; ++i) {
             AudioBean audioBean = new AudioBean();
-            audioBean.setName(file.getName());
-            audioBean.setPath(file.getAbsolutePath());
+            audioBean.setName(files[i].getName());
+            audioBean.setPath(files[i].getAbsolutePath());
+            audioBean.setId(i);
             mAudioList.add(audioBean);
+            PlayController.getInstance().initAudioPool(audioBean);
         }
     }
 

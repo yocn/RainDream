@@ -11,12 +11,11 @@ import androidx.fragment.app.FragmentManager;
  * @ClassName FragmentUtil
  */
 public class FragmentUtil {
-
     public static void startFragment(FragmentManager manager, BaseFragment fragment, int rootView) {
         manager.beginTransaction()
                 .setCustomAnimations(R.anim.slide_right_in, R.anim.slide_right_out,
                         R.anim.slide_right_in, R.anim.slide_right_out)
-                .add(rootView, fragment)
+                .replace(rootView, fragment)
                 .addToBackStack("")
                 .commit();
     }

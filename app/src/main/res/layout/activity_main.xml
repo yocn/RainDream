@@ -26,18 +26,18 @@
             android:background="@color/trans"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@color/gray_deep" />
-
             <ImageView
                 android:id="@+id/iv_icon"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/bt" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/gray_deep" />
 
         </LinearLayout>
 
@@ -50,5 +50,10 @@
 
     </LinearLayout>
 
+    <FrameLayout
+        android:id="@+id/fl_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
 </RelativeLayout>

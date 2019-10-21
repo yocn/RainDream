@@ -14,6 +14,7 @@ import com.yocn.raindream.R;
 import com.yocn.raindream.model.JumpBean;
 import com.yocn.raindream.utils.LogUtil;
 import com.yocn.raindream.view.activity.PlayActivity;
+import com.yocn.raindream.view.fragment.PlayFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,28 +40,27 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             , R.color.black, R.color.black, R.color.black
             , R.color.write, R.color.black, R.color.write};
 
+    private OnItemClickInterface mOnItemClickInterface;
+
+    public interface OnItemClickInterface {
+        void OnItemClick(JumpBean bean);
+    }
+
+    public void setOnItemClickInterface(OnItemClickInterface i) {
+        mOnItemClickInterface = i;
+    }
+
     public static List<JumpBean> getDataList() {
         List<JumpBean> list = new ArrayList<>();
-        list.add(new JumpBean("TextureView预览", PlayActivity.class));
-        list.add(new JumpBean("预览并获取数据", PlayActivity.class));
-        list.add(new JumpBean("Yuv数据获取", PlayActivity.class));
-        list.add(new JumpBean("Yuv数据获取 方式2", PlayActivity.class));
-        list.add(new JumpBean("Native转换Yuv", PlayActivity.class));
-        list.add(new JumpBean("libyuv做ARGB和I420转换", PlayActivity.class));
-        list.add(new JumpBean("GPUImage预览", PlayActivity.class));
-        list.add(new JumpBean("TestScrollActivity", PlayActivity.class));
-        list.add(new JumpBean("4", PlayActivity.class));
-        list.add(new JumpBean("5", PlayActivity.class));
-        list.add(new JumpBean("6", PlayActivity.class));
-        list.add(new JumpBean("7", PlayActivity.class));
-        list.add(new JumpBean("8", PlayActivity.class));
-        list.add(new JumpBean("9", PlayActivity.class));
-        list.add(new JumpBean("10", PlayActivity.class));
-        list.add(new JumpBean("11", PlayActivity.class));
-        list.add(new JumpBean("12", PlayActivity.class));
-        list.add(new JumpBean("13", PlayActivity.class));
-        list.add(new JumpBean("14", PlayActivity.class));
-        list.add(new JumpBean("15", PlayActivity.class));
+        list.add(new JumpBean("场景1", PlayFragment.class, R.color.color1, R.color.write));
+        list.add(new JumpBean("场景2", PlayFragment.class, R.color.color2, R.color.black));
+        list.add(new JumpBean("场景3", PlayFragment.class, R.color.color3, R.color.write));
+        list.add(new JumpBean("场景4", PlayFragment.class, R.color.color4, R.color.black));
+        list.add(new JumpBean("场景5", PlayFragment.class, R.color.color5, R.color.black));
+        list.add(new JumpBean("场景6", PlayFragment.class, R.color.color6, R.color.black));
+        list.add(new JumpBean("场景7", PlayFragment.class, R.color.color7, R.color.write));
+        list.add(new JumpBean("场景8", PlayFragment.class, R.color.color8, R.color.black));
+        list.add(new JumpBean("场景9", PlayFragment.class, R.color.color9, R.color.write));
         return list;
     }
 
@@ -113,14 +113,11 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.title.setText(mDatas.get(position - 1).getShow() + "");
             holder.title.setTextColor(mContext.getResources().getColor(textColor[(position - 1) % textColor.length]));
             holder.all.setBackgroundResource(colors[(position - 1) % colors.length]);
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //item 点击事件
-                    LogUtil.d("realPosition    click-" + (position - 1) + "    " + mDatas.get((position - 1)).getToClass() + " position-》" + (position - 1));
-                    if (mContext != null) {
-                        mContext.startActivity(new Intent(mContext, mDatas.get(position - 1).getToClass()));
-                    }
+            holder.itemView.setOnClickListener(v -> {
+                //item 点击事件
+                LogUtil.d("realPosition    click-" + (position - 1) + "    " + mDatas.get((position - 1)).getToClass() + " position-》" + (position - 1));
+                if (mOnItemClickInterface != null) {
+                    mOnItemClickInterface.OnItemClick(mDatas.get(position - 1));
                 }
             });
         }

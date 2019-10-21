@@ -7,20 +7,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.yocn.raindream.R;
 import com.yocn.raindream.base.BaseActivity;
 import com.yocn.raindream.model.JumpBean;
-import com.yocn.raindream.utils.BitmapUtil;
 import com.yocn.raindream.utils.DisplayUtil;
+import com.yocn.raindream.utils.FragmentUtil;
 import com.yocn.raindream.view.adapter.MainAdapter;
+import com.yocn.raindream.view.fragment.PlayFragment;
 
+import java.io.Serializable;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,7 +32,13 @@ public class MainActivity extends BaseActivity {
     RecyclerView mRecyclerView;
     LinearLayout mTopRL;
     ImageView mIconImageView;
+    FrameLayout mFragmentView;
     View mOtherView;
+    private int currentY;
+    Bitmap bitmap;
+    FragmentManager mFragmentManager;
+    MainAdapter.OnItemClickInterface onItemClickInterface;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +62,7 @@ public class MainActivity extends BaseActivity {
 
     private void initView(View root) {
         mRecyclerView = root.findViewById(R.id.rv_main);
+        mFragmentView = root.findViewById(R.id.fl_root);
         mTopRL = root.findViewById(R.id.rl_top);
         mIconImageView = root.findViewById(R.id.iv_icon);
         mOtherView = root.findViewById(R.id.iv_other);
@@ -60,16 +70,27 @@ public class MainActivity extends BaseActivity {
             int height = getWindow().getDecorView().getMeasuredHeight();
             int width = getWindow().getDecorView().getMeasuredWidth();
         });
+        onItemClickInterface = new MainAdapter.OnItemClickInterface() {
+            @Override
+            public void OnItemClick(JumpBean bean) {
+                mFragmentView.setVisibility(View.VISIBLE);
+                PlayFragment fragment = new PlayFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("jump", (Serializable) bean);
+                fragment.setArguments(bundle);
+                FragmentUtil.startFragment(mFragmentManager, fragment, R.id.fl_root);
+            }
+        };
     }
 
-    private int currentY;
-    Bitmap bitmap;
 
     private void initData() {
+        mFragmentManager = getSupportFragmentManager();
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.raindream);
 
         List<JumpBean> data = MainAdapter.getDataList();
         MainAdapter mMainAdapter = new MainAdapter(data);
+        mMainAdapter.setOnItemClickInterface(onItemClickInterface);
         mMainAdapter.setmContext(this);
         int spanCount;
         if (data.size() < 6) {
