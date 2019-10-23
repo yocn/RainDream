@@ -7,6 +7,7 @@ import java.io.File;
 public class StorageUtil {
     private final static String TAG = "StorageUtil";
     private final static String OGG = "ogg";
+    private final static String WAV = "wav";
 
     public static String getExternalFilesDir() {
         File file = RApplication.getAppContext().getExternalFilesDir("");
@@ -19,6 +20,12 @@ public class StorageUtil {
 
     public static String getOggPath() {
         String oggPath = getExternalFilesDir() + "/" + OGG;
+        FileUtils.checkDir(oggPath);
+        return oggPath;
+    }
+
+    public static String getWavPath() {
+        String oggPath = getExternalFilesDir() + "/" + WAV;
         FileUtils.checkDir(oggPath);
         return oggPath;
     }

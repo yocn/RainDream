@@ -10,7 +10,9 @@ import android.widget.TextView;
 import com.yocn.raindream.R;
 import com.yocn.raindream.base.BaseFragment;
 import com.yocn.raindream.model.JumpBean;
+import com.yocn.raindream.presenter.audio.MAudioManager;
 import com.yocn.raindream.utils.LogUtil;
+
 
 /**
  * @Author yocn
@@ -46,6 +48,14 @@ public class PlayFragment extends BaseFragment {
     }
 
     private void initData() {
+        MAudioManager.getInstance().initPlayer("guitar.wav");
+        MAudioManager.getInstance().start();
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MAudioManager.getInstance().stop();
     }
 }

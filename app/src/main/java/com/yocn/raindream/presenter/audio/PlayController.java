@@ -1,16 +1,16 @@
 package com.yocn.raindream.presenter.audio;
 
+import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.SoundPool;
-import android.util.SparseArray;
 import android.util.SparseIntArray;
 
 import com.yocn.raindream.base.RApplication;
 import com.yocn.raindream.model.audio.AudioBean;
+import com.yocn.raindream.utils.LogUtil;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -41,20 +41,25 @@ public class PlayController {
     }
 
     private void init() {
-        SoundPool.Builder spb = new SoundPool.Builder();
-        spb.setMaxStreams(10);
-        //转换音频格式
-        spb.setAudioAttributes(null);
-        //创建SoundPool对象
-        mSoundPool = spb.build();
+        SoundPool.Builder spBuilder = new SoundPool.Builder();
+        AudioAttributes.Builder builder = new AudioAttributes.Builder();
+        builder.setLegacyStreamType(AudioManager.STREAM_MUSIC);
+        spBuilder.setAudioAttributes(builder.build());
+        spBuilder.setMaxStreams(10);
+        mSoundPool = spBuilder.build();
     }
 
     public void initAudioPool(AudioBean bean) {
-        try {
-            mAudioPool.append(bean.getId(), mSoundPool.load(RApplication.getAppContext().getAssets().openFd(bean.getName()), 1));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        LogUtil.d("load->" + bean.getId() + " " + bean.getName());
+
+        mAudioPool.append(bean.getId(), mSoundPool.load(bean.getPath(), 1));
+        mSoundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+//                soundPool.play(map.get(1),1,1,0,0,1);
+                LogUtil.d("load->" + bean.getName() + " " + sampleId);
+            }
+        });
     }
 
     /**
@@ -70,6 +75,8 @@ public class PlayController {
     public void play(int id) {
         mSoundPool.play(mAudioPool.get(id), 1, 1, 0, -1, 1);
         mPlaying.add(id);
+
+
     }
 
     public void clearPlay() {
