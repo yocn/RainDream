@@ -19,15 +19,18 @@ import com.yocn.raindream.utils.LogUtil;
 public class AudioTrackPlayer {
     private final static String TAG = "AudioTrackPlayer";
     private AudioTrack mAudioTrack = null;
-
-    public static final int PLAY_MODE_AUTO = 0;        // 自动模式
-    public static final int PLAY_MODE_RECEIVER = 1;        // 听筒播放模式
-    public static final int PLAY_MODE_SPEAKER = 2;        // 喇叭播放模式
+    // 自动模式
+    public static final int PLAY_MODE_AUTO = 0;
+    // 听筒播放模式
+    public static final int PLAY_MODE_RECEIVER = 1;
+    // 喇叭播放模式
+    public static final int PLAY_MODE_SPEAKER = 2;
 
     private boolean mAudioPlayReleased = false;
 
     private Context mContext = RApplication.getAppContext();
-    private int mPlayMode = PLAY_MODE_SPEAKER;                // 默认是喇叭播放模式
+    // 默认是喇叭播放模式
+    private int mPlayMode = PLAY_MODE_SPEAKER;
 
     private int mBufferSize = 0;
 
@@ -57,8 +60,9 @@ public class AudioTrackPlayer {
 
     // 初始化音频播放器
     public int initAudioPlayer() {
-        if (mAudioTrack != null)
+        if (mAudioTrack != null) {
             return 0;
+        }
 
         int channel = mChannels == 1 ? AudioFormat.CHANNEL_OUT_MONO : AudioFormat.CHANNEL_OUT_STEREO;
         try {
@@ -66,7 +70,7 @@ public class AudioTrackPlayer {
             int minBufSize = AudioTrack.getMinBufferSize(mSampleRateInHz, channel, mAudioFormat);
             LogUtil.d(TAG, "start mMinPlayBufSize = " + minBufSize);
             mAudioTrack = new AudioTrack(mPlayMode == PLAY_MODE_SPEAKER ? AudioManager.STREAM_MUSIC : AudioManager.STREAM_VOICE_CALL,
-                mSampleRateInHz, channel, AudioFormat.ENCODING_PCM_16BIT, minBufSize, AudioTrack.MODE_STREAM);
+                    mSampleRateInHz, channel, AudioFormat.ENCODING_PCM_16BIT, minBufSize, AudioTrack.MODE_STREAM);
 
             mBufferSize = minBufSize;
             mAudioTrack.play();
@@ -87,9 +91,14 @@ public class AudioTrackPlayer {
         return -1;
     }
 
+    public void setVolume(float volume) {
+        mAudioTrack.setVolume(volume);
+    }
+
     public void releaseAudioPlayer() {
-        if (mAudioPlayReleased)
+        if (mAudioPlayReleased) {
             return;
+        }
         mAudioPlayReleased = true;
         LogUtil.d(TAG, "releaseAudioPlayer");
 
@@ -116,10 +125,12 @@ public class AudioTrackPlayer {
             AudioManager audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
             if (mode == PLAY_MODE_AUTO) {
                 if (isSpeakerMode()) {
-                    audioManager.setMode(AudioManager.MODE_IN_CALL);        // 切换到听筒
+                    // 切换到听筒
+                    audioManager.setMode(AudioManager.MODE_IN_CALL);
                     mPlayMode = PLAY_MODE_RECEIVER;
                 } else {
-                    audioManager.setMode(AudioManager.MODE_NORMAL);            // 切换到扬声器
+                    // 切换到扬声器
+                    audioManager.setMode(AudioManager.MODE_NORMAL);
                     mPlayMode = PLAY_MODE_SPEAKER;
                 }
             } else if (mode == PLAY_MODE_RECEIVER) {
