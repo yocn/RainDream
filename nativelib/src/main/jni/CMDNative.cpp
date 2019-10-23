@@ -5,8 +5,7 @@
 #include "CMDNative.h"
 #include <jni.h>
 #include <cstdlib>
-#include <ffmpeglib/ffmpegbin/ffmpeg.h>
-#include "ffmpeg.h"
+
 
 #ifndef LOG_TAG
 #define LOG_TAG "JNI_SRCNativeJNI"
@@ -18,6 +17,8 @@ using namespace std;
 static const char *CLASSPATH = "raindream/yocn/nativelib/NativeJNI";
 
 extern "C" {
+#include "ffmpeg.h"
+
 JNIEXPORT void JNICALL JNI_METHOD_NAME(helloFFmpeg)(JNIEnv *env, jobject thiz);
 JNIEXPORT jint JNICALL JNI_METHOD_NAME(execCmd)(JNIEnv *env, jclass clazz,
                                                 jobjectArray commands);
@@ -38,6 +39,6 @@ JNIEXPORT jint JNICALL JNI_METHOD_NAME(execCmd)(JNIEnv *env, jclass clazz,
     }
 
 //    av_log_set_callback(ffp_log_callback_report);
-//    int ret = ffmpeg_exec(argc, argv);
+    int ret = ffmpeg_exec(argc, argv);
     return 0;
 }
