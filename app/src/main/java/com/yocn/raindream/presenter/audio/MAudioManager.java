@@ -19,10 +19,8 @@ import java.util.List;
 public class MAudioManager {
     private static MAudioManager mInstance;
     private List<AudioBean> mAudioList = new ArrayList<>();
-    private boolean mIsInit = false;
 
-    private String mWavFile;
-    private PcmFilePlayer mPcmFilePlayer;
+    private List<PcmFilePlayer> players = new ArrayList<>();
 
     public static MAudioManager getInstance() {
         synchronized (MAudioManager.class) {
@@ -52,38 +50,41 @@ public class MAudioManager {
         }
     }
 
-    public void initPlayer(String name) {
-        mWavFile = StorageUtil.getWavPath() + "/" + name;
-        //guitar.wav
-        mPcmFilePlayer = new PcmFilePlayer();
-
-        mPcmFilePlayer.setDataSource(mWavFile);
-        mPcmFilePlayer.setCustomBufferSize(RecoderConfig.RecBufSize);
-        mPcmFilePlayer.prepare();
-        mPcmFilePlayer.setOnFramePlayListener((sec, data, size) -> {
-            LogUtil.d("sec:" + sec + " data:" + data.length + " size:" + size);
-        });
-        mIsInit = true;
+    public void initAPlayer(String name) {
+        PcmFilePlayer player = initPlayer(name);
+        players.add(player);
     }
 
+    private PcmFilePlayer initPlayer(String name) {
+        String mWavFile = StorageUtil.getWavPath() + "/" + name;
+        //guitar.wav
+        PcmFilePlayer pcmFilePlayer = new PcmFilePlayer();
+
+        pcmFilePlayer.setDataSource(mWavFile);
+        pcmFilePlayer.setCustomBufferSize(RecoderConfig.RecBufSize);
+        pcmFilePlayer.prepare();
+        pcmFilePlayer.setOnFramePlayListener((sec, data, size) -> {
+            LogUtil.d("sec:" + sec + " data:" + data.length + " size:" + size);
+        });
+        return pcmFilePlayer;
+    }
 
     public void start() {
-        if (mIsInit) {
-            mPcmFilePlayer.start();
+        for (PcmFilePlayer pcmFilePlayer : players) {
+            pcmFilePlayer.start();
         }
     }
 
     public void pause() {
-        if (mIsInit) {
-            mPcmFilePlayer.pause();
+        for (PcmFilePlayer pcmFilePlayer : players) {
+            pcmFilePlayer.pause();
         }
     }
 
     public void stop() {
-        mIsInit = false;
-        if (mPcmFilePlayer != null) {
-            mPcmFilePlayer.stop();
-            mPcmFilePlayer = null;
+        for (PcmFilePlayer pcmFilePlayer : players) {
+            pcmFilePlayer.stop();
+            pcmFilePlayer = null;
         }
     }
 

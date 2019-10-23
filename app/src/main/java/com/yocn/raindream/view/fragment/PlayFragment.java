@@ -50,7 +50,8 @@ public class PlayFragment extends BaseFragment {
     }
 
     private void initData() {
-        MAudioManager.getInstance().initPlayer("guitar.wav");
+        MAudioManager.getInstance().initAPlayer("guitar.wav");
+        MAudioManager.getInstance().initAPlayer("lake_rain.wav");
         MAudioManager.getInstance().start();
         Object[] oo = new Object[]{"-version"};
         NativeJNI.execCmd(oo);

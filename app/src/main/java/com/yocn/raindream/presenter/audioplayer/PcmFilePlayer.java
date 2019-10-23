@@ -64,7 +64,7 @@ public class PcmFilePlayer extends BaseMessageLoop {
     private int mBufferSize = 0;
     private int mCustomBufferSize = -1;
 
-    private boolean mIsLoop = false;
+    private boolean mIsLoop = true;
 
     public PcmFilePlayer() {
         super(RApplication.getAppContext(), "PcmFilePlayer");
