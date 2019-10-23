@@ -5,7 +5,7 @@
 #include "CMDNative.h"
 #include <jni.h>
 #include <cstdlib>
-
+#include "AndroidLog.h"
 
 #ifndef LOG_TAG
 #define LOG_TAG "JNI_SRCNativeJNI"
@@ -37,6 +37,7 @@ JNIEXPORT jint JNICALL JNI_METHOD_NAME(execCmd)(JNIEnv *env, jclass clazz,
         jstring js = (jstring) env->GetObjectArrayElement(commands, i);
         argv[i] = (char *) env->GetStringUTFChars(js, 0);
     }
+
 
 //    av_log_set_callback(ffp_log_callback_report);
     int ret = ffmpeg_exec(argc, argv);

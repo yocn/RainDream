@@ -9,7 +9,7 @@ include $(PREBUILT_SHARED_LIBRARY)
 
 # Program
 include $(CLEAR_VARS)
-LOCAL_MODULE := helloffmpeg
+LOCAL_MODULE := av_ffmpeg
 LOCAL_SRC_FILES :=  \
   $(LOCAL_PATH)/ffmpeglib/ffmpegbin/cmdutils.c  \
   $(LOCAL_PATH)/ffmpeglib/ffmpegbin/ffmpeg_filter.c  \
@@ -22,6 +22,6 @@ LOCAL_SRC_FILES :=  \
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/ffmpeglib/ffmpegbin
 #LOCAL_C_INCLUDES += $(LOCAL_PATH)/armeabi-v7a/include
 
-LOCAL_LDLIBS := -llog -lz
+LOCAL_LDLIBS := -llog -lz -lm
 LOCAL_SHARED_LIBRARIES := ffmpeg
 include $(BUILD_SHARED_LIBRARY)

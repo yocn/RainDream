@@ -13,6 +13,8 @@ import com.yocn.raindream.model.JumpBean;
 import com.yocn.raindream.presenter.audio.MAudioManager;
 import com.yocn.raindream.utils.LogUtil;
 
+import raindream.yocn.nativelib.NativeJNI;
+
 
 /**
  * @Author yocn
@@ -50,7 +52,8 @@ public class PlayFragment extends BaseFragment {
     private void initData() {
         MAudioManager.getInstance().initPlayer("guitar.wav");
         MAudioManager.getInstance().start();
-
+        Object[] oo = new Object[]{"-version"};
+        NativeJNI.execCmd(oo);
     }
 
     @Override
