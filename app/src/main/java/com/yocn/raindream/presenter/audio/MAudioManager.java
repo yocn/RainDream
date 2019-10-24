@@ -52,22 +52,26 @@ public class MAudioManager {
     }
 
     public void start() {
+        LogUtil.d("yocn start");
         for (PcmFilePlayer pcmFilePlayer : players) {
             pcmFilePlayer.start();
         }
     }
 
     public void pause() {
+        LogUtil.d("yocn pause");
         for (PcmFilePlayer pcmFilePlayer : players) {
             pcmFilePlayer.pause();
         }
     }
 
     public void stop() {
+        LogUtil.d("yocn stop");
         for (PcmFilePlayer pcmFilePlayer : players) {
             pcmFilePlayer.stop();
             pcmFilePlayer = null;
         }
+        players.clear();
     }
 
     public void setVolume(int index, int volume) {

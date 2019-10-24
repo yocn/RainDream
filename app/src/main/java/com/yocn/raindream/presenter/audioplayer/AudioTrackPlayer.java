@@ -105,7 +105,7 @@ public class AudioTrackPlayer {
             return;
         }
         mAudioPlayReleased = true;
-        LogUtil.d(TAG, "releaseAudioPlayer");
+        LogUtil.d("releaseAudioPlayer");
 
         if (mAudioTrack != null) {
             try {

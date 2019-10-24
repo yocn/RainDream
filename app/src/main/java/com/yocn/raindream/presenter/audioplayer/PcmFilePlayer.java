@@ -185,6 +185,7 @@ public class PcmFilePlayer extends BaseMessageLoop {
             case RENDER_STOP:
                 removeMessages(RENDER_RUN);
                 removeMessages(RENDER_SEEK);
+                LogUtil.d("yocn RENDER_STOP");
                 mAudioTrack.releaseAudioPlayer();
                 mReader.closeFile();
                 mReader.release();
@@ -300,6 +301,7 @@ public class PcmFilePlayer extends BaseMessageLoop {
     }
 
     public void stop() {
+        LogUtil.d("yocn PamFilePlayer stop");
         if (mCurrentState != STATE_IDLE) {
             removeMessages(RENDER_RUN);
             sendEmptyMessage(RENDER_STOP);

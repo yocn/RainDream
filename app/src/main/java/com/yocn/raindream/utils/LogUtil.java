@@ -8,7 +8,7 @@ import android.util.Log;
  * @ClassName LogUtil
  */
 public class LogUtil {
-    private static final String TAG = "Yocn";
+    private static final String TAG = "YocnYocn";
 
     public static void d(String msg, Object... ss) {
         StringBuilder sb = new StringBuilder(msg);
