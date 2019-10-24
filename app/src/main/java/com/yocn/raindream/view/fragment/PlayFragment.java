@@ -25,7 +25,7 @@ import raindream.yocn.nativelib.NativeJNI;
  * @Date 2019-10-21 14:13
  * @ClassName PlayFragment
  */
-public class PlayFragment extends BaseFragment {
+public class PlayFragment extends BaseFragment implements View.OnClickListener {
 
     JumpBean mJumpBean;
     RelativeLayout mRootRL;
@@ -33,9 +33,11 @@ public class PlayFragment extends BaseFragment {
     SeekBar sk1;
     SeekBar sk2;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_play, container, false);
+        root.setOnClickListener(this);
         preInitData();
         initView(root);
         initData();
@@ -105,4 +107,8 @@ public class PlayFragment extends BaseFragment {
         MAudioManager.getInstance().stop();
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }
