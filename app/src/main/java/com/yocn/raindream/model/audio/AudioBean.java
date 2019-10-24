@@ -1,15 +1,25 @@
 package com.yocn.raindream.model.audio;
 
+import java.io.Serializable;
+
 /**
  * @Author yocn
  * @Date 2019-10-18 10:57
  * @ClassName AudioBean
  */
-public class AudioBean {
+public class AudioBean implements Serializable {
+    //id
     private int id;
+    //音效
     private String effect;
+    //路径
     private String path;
+    //名字
     private String name;
+    //图标
+    private String icon;
+    //音量
+    private int volume = 50;
 
     public AudioBean() {
     }
@@ -46,6 +56,22 @@ public class AudioBean {
         this.name = name;
     }
 
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public int getVolume() {
+        return volume;
+    }
+
+    public void setVolume(int volume) {
+        this.volume = volume;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -72,6 +98,8 @@ public class AudioBean {
                 ", effect='" + effect + '\'' +
                 ", path='" + path + '\'' +
                 ", name='" + name + '\'' +
+                ", icon='" + icon + '\'' +
+                ", volume=" + volume +
                 '}';
     }
 }

@@ -33,6 +33,7 @@ public class AudioTrackPlayer {
     private int mPlayMode = PLAY_MODE_SPEAKER;
 
     private int mBufferSize = 0;
+    private float mCurrVolume = 1f;
 
     private int mSampleRateInHz = RecoderConfig.SampleRate;
     private int mChannels = RecoderConfig.ChannelCount;
@@ -73,6 +74,7 @@ public class AudioTrackPlayer {
                     mSampleRateInHz, channel, AudioFormat.ENCODING_PCM_16BIT, minBufSize, AudioTrack.MODE_STREAM);
 
             mBufferSize = minBufSize;
+            mAudioTrack.setVolume(mCurrVolume);
             mAudioTrack.play();
             LogUtil.d(TAG, "end mMinPlayBufSize = " + minBufSize);
         } catch (Exception e) {
@@ -92,7 +94,10 @@ public class AudioTrackPlayer {
     }
 
     public void setVolume(float volume) {
-        mAudioTrack.setVolume(volume);
+        mCurrVolume = volume / 100;
+        if (mAudioTrack != null) {
+            mAudioTrack.setVolume(mCurrVolume);
+        }
     }
 
     public void releaseAudioPlayer() {

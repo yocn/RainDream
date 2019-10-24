@@ -18,7 +18,6 @@ import java.util.List;
  */
 public class MAudioManager {
     private static MAudioManager mInstance;
-    private List<AudioBean> mAudioList = new ArrayList<>();
 
     private List<PcmFilePlayer> players = new ArrayList<>();
 
@@ -31,23 +30,6 @@ public class MAudioManager {
             }
         }
         return mInstance;
-    }
-
-    public void initAudioList() {
-        String rootPath = StorageUtil.getOggPath();
-        File[] files = FileUtils.listFiles(rootPath);
-        if (files == null) {
-            return;
-        }
-
-        for (int i = 0; i < files.length; ++i) {
-            AudioBean audioBean = new AudioBean();
-            audioBean.setName(files[i].getName());
-            audioBean.setPath(files[i].getAbsolutePath());
-            audioBean.setId(i);
-            mAudioList.add(audioBean);
-            PlayController.getInstance().initAudioPool(audioBean);
-        }
     }
 
     public void initAPlayer(String name) {
@@ -64,7 +46,7 @@ public class MAudioManager {
         pcmFilePlayer.setCustomBufferSize(RecoderConfig.RecBufSize);
         pcmFilePlayer.prepare();
         pcmFilePlayer.setOnFramePlayListener((sec, data, size) -> {
-            LogUtil.d("sec:" + sec + " data:" + data.length + " size:" + size);
+//            LogUtil.d("sec:" + sec + " data:" + data.length + " size:" + size);
         });
         return pcmFilePlayer;
     }
@@ -85,6 +67,20 @@ public class MAudioManager {
         for (PcmFilePlayer pcmFilePlayer : players) {
             pcmFilePlayer.stop();
             pcmFilePlayer = null;
+        }
+    }
+
+    public void setVolume(int index, int volume) {
+        if (index >= players.size()) {
+            return;
+        }
+        LogUtil.d("index->" + index + " v:" + volume);
+        players.get(index).setVolume(volume);
+    }
+
+    public void setAllVolume(int volume) {
+        for (int i = 0; i < players.size(); ++i) {
+            setVolume(i, volume);
         }
     }
 

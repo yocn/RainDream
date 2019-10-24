@@ -50,20 +50,6 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         mOnItemClickInterface = i;
     }
 
-    public static List<JumpBean> getDataList() {
-        List<JumpBean> list = new ArrayList<>();
-        list.add(new JumpBean("场景1", PlayFragment.class, R.color.color1, R.color.write));
-        list.add(new JumpBean("场景2", PlayFragment.class, R.color.color2, R.color.black));
-        list.add(new JumpBean("场景3", PlayFragment.class, R.color.color3, R.color.write));
-        list.add(new JumpBean("场景4", PlayFragment.class, R.color.color4, R.color.black));
-        list.add(new JumpBean("场景5", PlayFragment.class, R.color.color5, R.color.black));
-        list.add(new JumpBean("场景6", PlayFragment.class, R.color.color6, R.color.black));
-        list.add(new JumpBean("场景7", PlayFragment.class, R.color.color7, R.color.write));
-        list.add(new JumpBean("场景8", PlayFragment.class, R.color.color8, R.color.black));
-        list.add(new JumpBean("场景9", PlayFragment.class, R.color.color9, R.color.write));
-        return list;
-    }
-
     public void setmContext(Context mContext) {
         this.mContext = mContext;
     }

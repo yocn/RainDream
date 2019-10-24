@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import com.yocn.raindream.R;
 import com.yocn.raindream.base.BaseActivity;
 import com.yocn.raindream.model.JumpBean;
+import com.yocn.raindream.presenter.audio.AudioDataManager;
 import com.yocn.raindream.utils.DisplayUtil;
 import com.yocn.raindream.utils.FragmentUtil;
 import com.yocn.raindream.view.adapter.MainAdapter;
@@ -88,7 +89,7 @@ public class MainActivity extends BaseActivity {
         mFragmentManager = getSupportFragmentManager();
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.raindream);
 
-        List<JumpBean> data = MainAdapter.getDataList();
+        List<JumpBean> data = AudioDataManager.getDataList();
         MainAdapter mMainAdapter = new MainAdapter(data);
         mMainAdapter.setOnItemClickInterface(onItemClickInterface);
         mMainAdapter.setmContext(this);

@@ -1,8 +1,10 @@
 package com.yocn.raindream.model;
 
 import com.yocn.raindream.R;
+import com.yocn.raindream.model.audio.AudioBean;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Author yocn
@@ -14,12 +16,14 @@ public class JumpBean implements Serializable {
     private Class toClass;
     private int color = R.color.color1;
     private int textColor = R.color.write;
+    private List<AudioBean> audios;
 
-    public JumpBean(String show, Class toClass, int color, int textColor) {
+    public JumpBean(String show, Class toClass, int color, int textColor, List<AudioBean> audios) {
         this.show = show;
         this.toClass = toClass;
         this.color = color;
         this.textColor = textColor;
+        this.audios = audios;
     }
 
     public int getColor() {
@@ -52,5 +56,13 @@ public class JumpBean implements Serializable {
 
     public void setToClass(Class toClass) {
         this.toClass = toClass;
+    }
+
+    public List<AudioBean> getAudios() {
+        return audios;
+    }
+
+    public void setAudios(List<AudioBean> audios) {
+        this.audios = audios;
     }
 }

@@ -314,6 +314,9 @@ public class PcmFilePlayer extends BaseMessageLoop {
         mTargetState = STATE_PAUSED;
     }
 
+    public void setVolume(int volume) {
+        mAudioTrack.setVolume(volume);
+    }
 
     public void seekTo(int msec) {
         if (!isPlayerRunning) {

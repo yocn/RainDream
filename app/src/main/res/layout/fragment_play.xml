@@ -5,10 +5,27 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_main_drawable">
 
-    <TextView
-        android:id="@+id/tv_show"
-        android:layout_width="wrap_content"
+    <SeekBar
+        android:id="@+id/sk_1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_marginTop="100dp"
+        android:max="100"
+        android:maxHeight="2dp"
+        android:progress="30"
+        android:layout_margin="100dp"
+        android:thumb="@drawable/seek_bar_thumb" />
+
+    <SeekBar
+        android:id="@+id/sk_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:layout_marginTop="100dp"
+        android:layout_below="@id/sk_1"
+        android:layout_margin="100dp"
+        android:maxHeight="2dp"
+        android:progress="30"
+        android:thumb="@drawable/seek_bar_thumb" />
 
 </RelativeLayout>

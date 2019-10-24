@@ -11,7 +11,7 @@ public class NativeJNI {
         System.loadLibrary("av_ffmpeg");
     }
 
-    public native void helloFFmpeg();
+    public static native void helloFFmpeg();
 
     public static native int execCmd(Object[] args);
 
