@@ -7,23 +7,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.yocn.raindream.R;
 import com.yocn.raindream.base.BaseActivity;
 import com.yocn.raindream.model.JumpBean;
 import com.yocn.raindream.presenter.audio.AudioDataManager;
-import com.yocn.raindream.utils.DisplayUtil;
 import com.yocn.raindream.utils.FragmentUtil;
 import com.yocn.raindream.view.adapter.MainAdapter;
 import com.yocn.raindream.view.fragment.PlayFragment;
+import com.yocn.raindream.view.widget.RotateAnimationZ;
 
 import java.io.Serializable;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,15 +31,10 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MainActivity extends BaseActivity {
 
     RecyclerView mRecyclerView;
-    LinearLayout mTopRL;
-    ImageView mIconImageView;
     FrameLayout mFragmentView;
-    View mOtherView;
-    private int currentY;
-    Bitmap bitmap;
     FragmentManager mFragmentManager;
     MainAdapter.OnItemClickInterface onItemClickInterface;
-
+    RelativeLayout mFrontRL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +59,7 @@ public class MainActivity extends BaseActivity {
     private void initView(View root) {
         mRecyclerView = root.findViewById(R.id.rv_main);
         mFragmentView = root.findViewById(R.id.fl_root);
-        mTopRL = root.findViewById(R.id.rl_top);
-        mIconImageView = root.findViewById(R.id.iv_icon);
-        mOtherView = root.findViewById(R.id.iv_other);
-        mTopRL.post(() -> {
-            int height = getWindow().getDecorView().getMeasuredHeight();
-            int width = getWindow().getDecorView().getMeasuredWidth();
-        });
+        mFrontRL = root.findViewById(R.id.rl_front);
         onItemClickInterface = new MainAdapter.OnItemClickInterface() {
             @Override
             public void OnItemClick(JumpBean bean) {
@@ -87,7 +76,6 @@ public class MainActivity extends BaseActivity {
 
     private void initData() {
         mFragmentManager = getSupportFragmentManager();
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.raindream);
 
         List<JumpBean> data = AudioDataManager.getDataList();
         MainAdapter mMainAdapter = new MainAdapter(data);
@@ -113,37 +101,35 @@ public class MainActivity extends BaseActivity {
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(mMainAdapter);
 
-        final int min = DisplayUtil.dip2px(this, 100);
-        final int max = DisplayUtil.dip2px(this, 140);
-
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                currentY += dy;
-                if (currentY < min) {
-                    mTopRL.setVisibility(View.GONE);
-//                    DisplayUtil.setAndroidNativeLightStatusBar(MainActivity.this, false);
-                } else {
-                    mTopRL.setVisibility(View.VISIBLE);
-//                    DisplayUtil.setAndroidNativeLightStatusBar(MainActivity.this, true);
-                    if (currentY < max) {
-                        float percent = (currentY - min) * 1.0f / (max - min);
-                        mTopRL.setAlpha(percent);
-                    } else {
-//                        mTopRL.setBackgroundResource(R.color.gray_deep);
-                        mTopRL.setAlpha(1.0f);
-                    }
-
-                }
-            }
-        });
     }
 
+    public void rotateAnimZ(boolean open) {
+        RotateAnimationZ animation = new RotateAnimationZ();
+        animation.isZhengfangxiang = !open;
+        animation.direction = animation.Y;
+        animation.setDuration(1000);
+        animation.setInterpolator(new AccelerateDecelerateInterpolator());
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                mFrontRL.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (!open) {
+                    mFrontRL.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+//        animation.setRepeatCount(Animation.ABSOLUTE);
+//        animation.setRepeatMode(Animation.REVERSE);
+        mFrontRL.startAnimation(animation);
+    }
 
 }

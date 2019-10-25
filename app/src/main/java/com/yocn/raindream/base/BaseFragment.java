@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yocn.raindream.view.activity.MainActivity;
+
 import androidx.fragment.app.Fragment;
 
 
@@ -73,6 +75,12 @@ public class BaseFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    public void startAnim(boolean isStart) {
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) getActivity()).rotateAnimZ(isStart);
+        }
     }
 }
 

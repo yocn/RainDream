@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_main_drawable">
@@ -11,49 +12,37 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <LinearLayout
-        android:id="@+id/rl_top"
-        android:layout_width="match_parent"
-        android:layout_height="76dp"
-        android:layout_alignParentTop="true"
-        android:background="@color/trans"
-        android:orientation="horizontal"
-        android:visibility="visible">
-
-        <LinearLayout
-            android:layout_width="100dp"
-            android:layout_height="76dp"
-            android:background="@color/trans"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/iv_icon"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/bt" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@color/gray_deep" />
-
-        </LinearLayout>
-
-        <View
-            android:id="@+id/iv_other"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/gray_deep" />
-
-    </LinearLayout>
-
     <FrameLayout
         android:id="@+id/fl_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rl_front"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="-25dp"
+        android:visibility="invisible"
+        android:layout_alignParentBottom="true">
+
+        <me.samlss.view.RainyView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:left_cloud_color="#B7AC8D"
+            app:raindrop_color="#9aa9bb"
+            app:raindrop_creation_interval="10"
+            app:raindrop_max_length="21"
+            app:raindrop_max_number="11"
+            app:raindrop_max_speed="3"
+            app:raindrop_min_length="10"
+            app:raindrop_min_speed="1"
+            app:raindrop_size="10"
+            app:raindrop_slope="-4"
+            app:right_cloud_color="#9b8f84" />
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

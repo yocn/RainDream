@@ -33,7 +33,6 @@ public class PlayFragment extends BaseFragment implements View.OnClickListener {
     SeekBar sk1;
     SeekBar sk2;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_play, container, false);
@@ -48,6 +47,7 @@ public class PlayFragment extends BaseFragment implements View.OnClickListener {
         Bundle bundle = getArguments();
         mJumpBean = (JumpBean) bundle.getSerializable("jump");
         mAudioList = mJumpBean.getAudios();
+        startAnim(true);
         LogUtil.d("list->" + mAudioList.toString());
     }
 
@@ -105,6 +105,7 @@ public class PlayFragment extends BaseFragment implements View.OnClickListener {
     public void onDestroy() {
         super.onDestroy();
         MAudioManager.getInstance().stop();
+        startAnim(false);
     }
 
     @Override
